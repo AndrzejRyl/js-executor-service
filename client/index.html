@@ -8,7 +8,6 @@
 
 	<form id="uploadForm"
 	enctype="multipart/form-data"
-	action="/api/function_file"
 	method="post">
 	<input type="file" name="function_file" />
 	<input type="submit" value="Upload JS file" name="submit">
@@ -17,27 +16,6 @@
 </div>
 
 <script>
-$(document).ready(function() {
-	$('#uploadForm').submit(function() {
-		$("#status").empty().text("File is uploading...");
-
-		$(this).ajaxSubmit({
-
-			error: function(xhr) {
-				status('Error: ' + xhr.status);
-			},
-
-			success: function(response) {
-				console.log(response)
-
-				if (response.isSuccess()) 
-					// Show info to user and call server with gathered file
-			}
-		});
-
-		return false;
-	});    
-});
 </script>
 </body>
 </html>

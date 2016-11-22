@@ -4,22 +4,23 @@ var uploadCLient = require("./file_upload.js");
 
 uploadCLient.start();
 
-function readLocalFile(localPath) {
+module.exports.readLocalFile = function readLocalFile(name) {
+	var filePath = "./uploads/" + name;
 	// Modify file exporting function that is there. We will be able to use it here than
-	fs.readFile(localPath, 'utf-8', function(err, data) {
+	fs.readFile(filePath, 'utf-8', function(err, data) {
 		if (err) throw err;
 
 		if (!data.startsWith("module.exports"))
 			data = "module.exports.function_to_calculate = " + data;
 
-		fs.writeFile(localPath, data, 'utf-8', function (err) {
+		fs.writeFile(filePath, data, 'utf-8', function (err) {
 			if (err) throw err;
-			executeReadFunction();
+			executeReadFunction(filePath);
 		});
 	});
 }
 
-function executeReadFunction() {
+function executeReadFunction(filePath) {
 	var file = require(filePath);
 
 	request({

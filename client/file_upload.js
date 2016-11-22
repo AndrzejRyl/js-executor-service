@@ -17,14 +17,14 @@ module.exports.start = function start() {
 		res.sendFile(__dirname + "/index.html");
 	});
 
-	app.post('/api/function_file',function(req,res){
+	app.post('',function(req,res){
 		upload(req,res,function(err) {
 			if(err) {
 				return res.end("Error uploading file.");
 			}
-			res.setHeader('Access-Control-Allow-Origin', '*');
-			res.setHeader('Content-Type', 'text/plain');
-			res.writeHead(200);
+
+			var client = require("./client.js");
+			client.readLocalFile(req.file.filename);
 			res.end();
 		});
 	});
