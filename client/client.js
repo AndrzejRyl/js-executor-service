@@ -4,7 +4,7 @@ var uploadCLient = require("./file_upload.js");
 
 uploadCLient.start();
 
-module.exports.readLocalFile = function readLocalFile(name) {
+module.exports.readLocalFile = function readLocalFile(name, callback) {
 	var filePath = "./uploads/" + name;
 	// Modify file exporting function that is there. We will be able to use it here than
 	fs.readFile(filePath, 'utf-8', function(err, data) {
@@ -15,12 +15,12 @@ module.exports.readLocalFile = function readLocalFile(name) {
 
 		fs.writeFile(filePath, data, 'utf-8', function (err) {
 			if (err) throw err;
-			executeReadFunction(filePath);
+			executeReadFunction(filePath, callback);
 		});
 	});
 }
 
-function executeReadFunction(filePath) {
+function executeReadFunction(filePath, callback) {
 	var file = require(filePath);
 
 	request({
@@ -29,9 +29,9 @@ function executeReadFunction(filePath) {
 		body: file.function_to_calculate.toString()
 	}, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
-			console.log(body);
+			callback(null, body);
 		} else {
-			console.log("ERROR: " + error);
+			callback("ERROR: " + error);
 		}
 	});
 }

@@ -24,8 +24,14 @@ module.exports.start = function start() {
 			}
 
 			var client = require("./client.js");
-			client.readLocalFile(req.file.filename);
-			res.end();
+			client.readLocalFile(req.file.filename, 
+				function(err, body) {
+					if (err) {
+						res.end("{\"result\":\"errorerrorerror\"}");
+					} else {
+						res.end("{\"result\":\"" + body + "\"}");
+					}
+				});
 		});
 	});
 
