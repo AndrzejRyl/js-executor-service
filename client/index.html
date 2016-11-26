@@ -18,9 +18,9 @@
 	</div>
 
 	<!-- Card with form -->
-	<div class="row">
+	<div id="card" class="row" style="margin-top:100px">
 		<div class="col s10 m4 offset-m1 offset-m4">
-			<div class="card blue-grey darken-1">
+			<div class="card blue-grey darken-1 z-depth-4">
 				<div class="card-content white-text">
 					<span class="card-title">Choose file</span>
 					<p>This file has to contain one Javascript function. After submitting it will be calculated on the server and you will be informed about results.</p>
@@ -32,43 +32,32 @@
 							enctype="multipart/form-data"
 							method="post"
 							style="margin:auto">
-							<div class="file-field input-field">
-								<div class="btn-large orange darken-2 waves-effect waves-light">
-									<span>Choose file</span>
-									<input type="file" name="function_file">
-								</div>
-								<div class="file-path-wrapper">
-									<input id="file_name" class="file-path validate" type="text">
-								</div>
-							</div>
-							<div id="submit" class="btn-large orange darken-2 waves-effect waves-light" style="width:100%" onclick="submitform()">
-								<span>Submit file</span>
-								<input type="submit" value="" name="submit">
-							</div>
-						</form>
-
-						<div id="progress" class="row">
-							<div class="col s2 offset-s5">
-								<div class="preloader-wrapper active" style="margin:auto">
-									<div class="spinner-layer spinner-blue-only">
-										<div class="circle-clipper left">
-											<div class="circle"></div>
-										</div>
-										<div class="gap-patch">
-											<div class="circle"></div>
-										</div>
-										<div class="circle-clipper right">
-											<div class="circle"></div>
-										</div>
+								<div class="file-field input-field">
+									<div class="btn-large orange darken-2 waves-effect waves-light">
+										<span>Choose file</span>
+										<input type="file" name="function_file">
+									</div>
+									<div class="file-path-wrapper">
+										<input id="file_name" class="file-path validate" type="text">
 									</div>
 								</div>
-							</div>
-						</div>
+							</form>
 
-						<div id="resultRow" class="row">
-							<div class="col s10 offset-s1">
-								<div style="margin:auto">
-									<h6 id="result" style="text-align:center" class="light white-text text-lighten-4 center-on-small-only"></h4>
+							<div id="progress" class="row">
+								<div class="col s2 offset-s5">
+									<div class="preloader-wrapper active" style="margin:auto">
+										<div class="spinner-layer spinner-blue-only">
+											<div class="circle-clipper left">
+												<div class="circle"></div>
+											</div>
+											<div class="gap-patch">
+												<div class="circle"></div>
+											</div>
+											<div class="circle-clipper right">
+												<div class="circle"></div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -77,44 +66,60 @@
 			</div>
 		</div>
 	</div>
-</div>
+
+	<div id="resultRow" class="row" style="margin-top:100px">
+		<div class="col s10 m4 offset-m1 offset-m4">
+			<div class="card blue-grey darken-1 z-depth-4">
+				<div class="card-content white-text">
+					<div class="row">
+						<h4 style="text-align:center" class="light white-text text-lighten-4 center-on-small-only">Result</h4>
+					</div>
+					<div class="row">
+						<h6 id="result" style="text-align:center" class="light white-text text-lighten-4 center-on-small-only"></h6>
+					</div>
+					<div class="row">
+						<div class="col s8 offset-s2">
+							<div class="btn-large orange darken-2 waves-effect waves-light" style="width:100%" onclick="reset()">
+								<span>One more?</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 <script>
-	$("#submit").hide();
-	$("#progress").hide();
-	$("#result").hide();
-	$("#resultRow").hide();
+$("#progress").hide();
+$("#resultRow").hide();
 
-	$('#uploadForm').ajaxForm({
-		url : '',
-		dataType : 'json',
-		success : function (response) {
-			$("#progress").hide();
-			$("#uploadForm").hide();
-			$("#result").show();
-			$("#resultRow").show();
-			$("#result").text("The server says: " + response.result);
-		},
-		error : function (xhr, ajaxOptions, thrownError) {
-			$("#progress").hide();
-			$("#uploadForm").hide();
-			$("#result").show();
-			$("#resultRow").show();
-			$("#result").text(thrownError);
-		}
-	});
-
-	$(document).on('change', '#file_name', function() {
-		console.log("File available");
-		$("#submit").show();
-	});
-
-	function submitform() {
-		console.log("Submitting");
-		$("#submit").hide();
-		$("#progress").show();
-		$("#uploadForm").submit();
+$('#uploadForm').ajaxForm({
+	url : '',
+	dataType : 'json',
+	success : function (response) {
+		$("#card").hide();
+		$("#resultRow").show();
+		$("#result").text("The server says: " + response.result);
+	},
+	error : function (xhr, ajaxOptions, thrownError) {
+		$("#card").hide();
+		$("#resultRow").show();
+		$("#result").text(thrownError);
 	}
+});
+
+$(document).on('change', '#file_name', function() {
+	console.log("Submitting");
+	$("#progress").show();
+	$("#uploadForm").submit();
+});
+
+function reset() {
+	$("#resultRow").hide();
+	$("#progress").hide();
+	$('#uploadForm')[0].reset();
+	$("#card").show();
+}
 </script>
 </body>
 </html>
