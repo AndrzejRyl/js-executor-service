@@ -97,16 +97,18 @@ $('#uploadForm').ajaxForm({
 	url : '',
 	dataType : 'json',
 	success : function (response) {
-		$("#card").hide();
-		$("#resultRow").show();
-		$("#result").text("The server says: " + response.result);
+		args = response.result;
+		console.log(args);
+		if (args.length == 0)
+			execute();
+		else
+			alert(args[0]);
 	},
 	error : function (xhr, ajaxOptions, thrownError) {
-		$("#card").hide();
-		$("#resultRow").show();
-		$("#result").text(thrownError);
+		console.log(thrownError);
 	}
 });
+
 
 $(document).on('change', '#file_name', function() {
 	console.log("Submitting");
@@ -119,6 +121,27 @@ function reset() {
 	$("#progress").hide();
 	$('#uploadForm')[0].reset();
 	$("#card").show();
+}
+
+function execute() {
+	var args = ["1", "str", "3.0"];
+	$.ajax({
+	    type: "POST",
+	    url: "/execute",
+	    data: JSON.stringify({ args: args }),
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+		success : function (response) {
+			$("#card").hide();
+			$("#resultRow").show();
+			$("#result").text("The server says: " + response.result);
+		},
+		error : function (xhr, ajaxOptions, thrownError) {
+			$("#card").hide();
+			$("#resultRow").show();
+			$("#result").text(thrownError);
+		}
+	});
 }
 </script>
 </body>
