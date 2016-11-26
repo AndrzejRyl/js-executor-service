@@ -17,20 +17,16 @@
 </div>
 
 <script>
-$('#uploadForm')
-.ajaxForm({
+$('#uploadForm').ajaxForm({
 	url : '',
 	dataType : 'json',
 	success : function (response) {
-		console.log("succ: " + response.result);
 		alert("The server says: " + response.result);
 	},
 	error : function (xhr, ajaxOptions, thrownError) {
-		alert(xhr.status);
 		alert(thrownError);
 	}
-})
-;
+});
 </script>
 </body>
 </html>

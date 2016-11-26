@@ -1,3 +1,3 @@
-module.exports.function_to_calculate = function test() {
-	return "test";
+function test() {
+	return "test2";
 }
