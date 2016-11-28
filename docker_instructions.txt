@@ -1,9 +1,0 @@
-To install docker run this in Docker CLI in project folder
-
-docker build -t js-executor-service .
-
-To start
-docker run -p 12345:8080 js-executor-service
-
-Server will be available under http://192.168.99.100:12345
-
