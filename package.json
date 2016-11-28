@@ -11,11 +11,6 @@
     "type": "git",
     "url": "git+https://github.com/Hoobie/js-executor-service.git"
   },
-  "dependencies": {
-    "express": "4.13.3",
-    "multer": "1.1.0",
-	"request": "2.79.0"
-  },
   "keywords": [
     "mcc",
     "offloading"

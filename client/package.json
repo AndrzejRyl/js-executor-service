@@ -1,0 +1,29 @@
+{
+  "name": "js-executor-service",
+  "version": "0.1.0",
+  "description": "",
+  "main": "client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node client.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndrzejRyl/js-executor-service.git"
+  },
+  "dependencies": {
+    "express": "4.13.3",
+    "multer": "1.1.0",
+	"request": "2.79.0"
+  },
+  "keywords": [
+    "mcc",
+    "offloading"
+  ],
+  "author": "Andrzej Ryl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndrzejRyl/js-executor-service/issues"
+  },
+  "homepage": "https://github.com/AndrzejRyl/js-executor-service#readme"
+}
