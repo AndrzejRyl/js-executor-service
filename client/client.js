@@ -9,7 +9,7 @@ module.exports.executeFunctionOnServer = function executeFunctionOnServer(filePa
 	console.log("Args sent to server:" + arguments);
 
 	request({
-		url: "http://localhost:8080",
+		url: "http://192.168.99.100:12345",
 		method: "POST",
 		body: file.function_to_calculate.toString()
 	}, function (error, response, body) {
