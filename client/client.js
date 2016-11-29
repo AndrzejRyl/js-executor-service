@@ -1,17 +1,18 @@
 var request = require('request');
-var uploadCLient = require("./file_upload.js");
+var api = require("./client_api.js");
 
-// Listen for file uploads
-uploadCLient.start();
+// Listen for posts/gets
+api.start();
 
 module.exports.executeFunctionOnServer = function executeFunctionOnServer(filePath, arguments, callback) {
 	var file = require(filePath);
-	console.log("Args sent to server:" + arguments);
 
 	request({
-		url: "http://192.168.99.100:12345",
+		url: "http://localhost:8080",
 		method: "POST",
-		body: file.function_to_calculate.toString()
+		body: JSON.stringify({
+			code:file.function_to_calculate.toString(),
+			args: JSON.stringify(args)})
 	}, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			callback(null, body);

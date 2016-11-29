@@ -4,8 +4,7 @@ var fs = require('fs');
 var client = require("./client.js");
 var app	= express();
 var functionName;
-var args = [];
-var fileName;
+module.exports.args = [];
 
 var storage	=	multer.diskStorage({
 	destination: function (req, file, callback) {
@@ -15,53 +14,9 @@ var storage	=	multer.diskStorage({
 		callback(null, file.fieldname + '-' + Date.now());
 	}
 });
-var upload = multer({ storage : storage}).single('function_file');
+module.exports.upload = multer({ storage : storage}).single('function_file');
 
-module.exports.start = function start() {
-	// ===================Routing=========================
-
-	// Get main page
-	app.get('/',function(req,res){
-		res.sendFile(__dirname + "/index.html");
-	});
-
-	// Parse file with js function
-	app.post('', function(req,res){
-		upload(req,res,function(err) {
-			console.log("Upload!");
-			if(err) {
-				return res.end("Error uploading file.");
-			}
-
-			fileName = req.file.filename;
-			readLocalFile(req.file.filename, 
-				function(err, body) {
-					console.log("Read local file return!");
-					if (err)
-						res.end("{\"result\":\"errorerrorerror\"}");
-
-					res.end("{\"result\":" + JSON.stringify(args) + "}");
-				});
-		});
-	});
-
-	// Send function along with arguments to the server and return response
-	app.post('/execute', function(req, res) {
-		client.executeFunctionOnServer("./uploads/" + fileName, req.args, function(err, body) {
-			if (err)
-				res.end("{\"result\":\"errorerrorerror\"}");
-			else
-				res.end("{\"result\":\"" + body + "\"}");
-
-		});
-	});
-
-	app.listen(3000,function(){
-		console.log("Working on port 3000");
-	});
-}
-
-function readLocalFile(name, callback) {
+module.exports.readLocalFile = function readLocalFile(name, callback) {
 	var filePath = "./uploads/" + name;
 	fs.readFile(filePath, 'utf-8', function(err, data) {
 		if (err) throw err;
