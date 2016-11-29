@@ -89,7 +89,23 @@
 		</div>
 	</div>
 
-<script>
+	<!-- Argument modal -->
+	<div id="argument_modal" class="modal">
+		<div id="modal-content" class="modal-content">
+			<h4 id="modal-title"></h4>
+			<div id="arguments"></div>
+		</div>
+		<div class="modal-footer">
+			<div class="modal-action modal-close waves-effect waves-green btn-flat" onclick="gatherUserArgs()">Proceed</div>
+		</div>
+	</div>
+
+<script>  
+// Init modal
+$(document).ready(function(){
+    $('.modal').modal();
+});
+
 $("#progress").hide();
 $("#resultRow").hide();
 
@@ -102,7 +118,7 @@ $('#uploadForm').ajaxForm({
 		if (args.length == 0)
 			execute([]);
 		else
-			execute(args);
+			askForArguments(args);
 	},
 	error : function (xhr, ajaxOptions, thrownError) {
 		console.log(thrownError);
@@ -141,6 +157,44 @@ function execute(args) {
 			$("#result").text(thrownError);
 		}
 	});
+}
+
+function askForArguments(args) {
+	$("#modal-title").text("Function you provided requires arguments. Please fill them out.");
+	var innerHTML = "";
+    for (i = 0; i < args.length; i++) {
+    	console.log(i);
+    	if ((i % 3) == 0) {
+    		if (i != 0) {
+    			console.log("close: " + i);
+    			innerHTML += "</row>";	
+    		}
+    		console.log("open: " + i);
+    		innerHTML += "<row>";
+    	}
+    	innerHTML += "<div class=\"input-field col s3 offset-s1\" style=\"display:inline-block; margin:3%\">" +
+    		"<input id=\"arg" + i + "\" type=\"text\" class=\"validate\" style=\"margin-bottom:0\">" +
+    		"<label for=arg" + i + "\">" + args[i] + "</label>" +
+    		"</div>";
+    }
+    innerHTML += "</row>";
+    $("#arguments").append(innerHTML);
+
+    $("#argument_modal").modal('open');
+}
+
+function gatherUserArgs() {
+	var values = [];
+
+	$('#arguments > row > .input-field > input').each(
+		function(i, item) { 
+			values.push($("#" + item.id).val());
+		}
+	);
+
+    $("#argument_modal").modal('close');
+    $("#arguments").empty();
+	execute(values);
 }
 </script>
 </body>
