@@ -1,4 +1,5 @@
 var express	= require("express");
+var bodyParser = require("body-parser");
 var uploadClient = require("./file_upload.js");
 var client = require("./client.js");
 var fileName;
@@ -6,6 +7,8 @@ var fileName;
 var app	= express();
 
 module.exports.start = function start() {
+	app.use(bodyParser.json());
+
 	// Routing 
 	// Get main page
 	app.get('/',function(req,res){
@@ -14,7 +17,7 @@ module.exports.start = function start() {
 
 	// Send function along with arguments to the server and return response
 	app.post('/execute', function(req, res) {
-		client.executeFunctionOnServer("./uploads/" + fileName, req.args, function(err, body) {
+		client.executeFunctionOnServer("./uploads/" + fileName, req.body.args, function(err, body) {
 			if (err)
 				res.end("{\"result\":\"errorerrorerror\"}");
 			else
@@ -38,7 +41,7 @@ module.exports.start = function start() {
 					if (err)
 						res.end("{\"result\":\"errorerrorerror\"}");
 
-					res.end("{\"result\":" + JSON.stringify(uploadClient.args) + "}");
+					res.end("{\"result\":" + JSON.stringify(args) + "}");
 				});
 		});
 	});

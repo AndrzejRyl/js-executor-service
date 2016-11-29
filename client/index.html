@@ -100,9 +100,9 @@ $('#uploadForm').ajaxForm({
 		args = response.result;
 		console.log(args);
 		if (args.length == 0)
-			execute();
+			execute([]);
 		else
-			alert(args[0]);
+			execute(args);
 	},
 	error : function (xhr, ajaxOptions, thrownError) {
 		console.log(thrownError);
@@ -123,14 +123,13 @@ function reset() {
 	$("#card").show();
 }
 
-function execute() {
-	var args = ["1", "str", "3.0"];
+function execute(args) {
 	$.ajax({
 	    type: "POST",
 	    url: "/execute",
-	    data: JSON.stringify({ args: args }),
 	    contentType: "application/json; charset=utf-8",
 	    dataType: "json",
+	    data: JSON.stringify({ args: args }),
 		success : function (response) {
 			$("#card").hide();
 			$("#resultRow").show();
