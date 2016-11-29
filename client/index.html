@@ -102,6 +102,7 @@
 
 <script>
 var functionExecuting = false;  
+
 // Init modal
 $(document).ready(function(){
     $('.modal').modal({
@@ -112,28 +113,27 @@ $(document).ready(function(){
     	}});
 });
 
-$("#progress").hide();
-$("#resultRow").hide();
+// Init HTML structure
+reset();
 
+// Init file form
 $('#uploadForm').ajaxForm({
 	url : '',
 	dataType : 'json',
 	success : function (response) {
 		args = response.result;
-		console.log(args);
 		if (args.length == 0)
 			execute([]);
 		else
 			askForArguments(args);
 	},
 	error : function (xhr, ajaxOptions, thrownError) {
-		console.log(thrownError);
+		alert(thrownError);
 	}
 });
 
 
 $(document).on('change', '#file_name', function() {
-	console.log("Submitting");
 	$("#progress").show();
 	$("#uploadForm").submit();
 });
@@ -169,15 +169,13 @@ function execute(args) {
 
 function askForArguments(args) {
 	$("#modal-title").text("Function you provided requires arguments. Please fill them out.");
+	
 	var innerHTML = "";
     for (i = 0; i < args.length; i++) {
-    	console.log(i);
     	if ((i % 3) == 0) {
-    		if (i != 0) {
-    			console.log("close: " + i);
+    		if (i != 0)
     			innerHTML += "</row>";	
-    		}
-    		console.log("open: " + i);
+
     		innerHTML += "<row>";
     	}
     	innerHTML += "<div class=\"input-field col s3 offset-s1\" style=\"display:inline-block; margin:3%\">" +
@@ -186,8 +184,8 @@ function askForArguments(args) {
     		"</div>";
     }
     innerHTML += "</row>";
-    $("#arguments").append(innerHTML);
 
+    $("#arguments").append(innerHTML);
     $("#argument_modal").modal('open');
 }
 
@@ -201,8 +199,10 @@ function gatherUserArgs() {
 	);
 
 	functionExecuting = true;
+    
     $("#argument_modal").modal('close');
     $("#arguments").empty();
+	
 	execute(values);
 }
 </script>

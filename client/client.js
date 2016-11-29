@@ -6,13 +6,9 @@ api.start();
 
 module.exports.executeFunctionOnServer = function executeFunctionOnServer(filePath, arguments, callback) {
 	var file = require(filePath);
-	console.log("Args sent to server:" + arguments);
-	console.log("JSON to server: " +  JSON.stringify({
-			code:file.function_to_calculate.toString(),
-			args: arguments}));
 
 	request({
-		url: "http://localhost:8080",
+		url: "http://192.168.99.100:8080",
 		method: "POST",
 		body: JSON.stringify({
 			code:file.function_to_calculate.toString(),
