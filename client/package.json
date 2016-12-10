@@ -17,8 +17,7 @@
 	"request": "2.79.0",
 	"body-parser": "1.15.2",
 	"mocha": "3.2.0",
-	"chai": "3.5.0",
-	"sinon": "1.17.6"
+	"chai": "3.5.0"
   },
   "keywords": [
     "mcc",
