@@ -8,10 +8,10 @@ const server = http.createServer(function(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Content-Type', 'text/json');
 
-    var track = createSandbox(['node_modules/tracking/build/tracking.js',
-        'node_modules/tracking/build/data/eye.js',
-        'node_modules/tracking/build/data/face.js',
-        'node_modules/tracking/build/data/mouth.js'
+    var track = createSandbox(['./node_modules/tracking/build/tracking.js',
+        './node_modules/tracking/build/data/eye.js',
+        './node_modules/tracking/build/data/face.js',
+        './node_modules/tracking/build/data/mouth.js'
     ], {
         navigator: {},
         tracking: {},
