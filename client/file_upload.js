@@ -3,7 +3,7 @@ var multer = require('multer');
 var fs = require('fs');
 var client = require("./client.js");
 var app	= express();
-var functionName;
+module.exports.functionName;
 module.exports.args = [];
 
 var storage	=	multer.diskStorage({
@@ -21,7 +21,7 @@ module.exports.readLocalFile = function readLocalFile(name, callback) {
 	fs.readFile(filePath, 'utf-8', function(err, data) {
 		if (err) throw err;
 
-		data = parseData(data);
+		data = module.exports.parseData(data);
 
 		// Save modified file
 		fs.writeFile(filePath, data, 'utf-8', function (err) {
@@ -31,7 +31,7 @@ module.exports.readLocalFile = function readLocalFile(name, callback) {
 	});
 }
 
-function parseData(data) {
+module.exports.parseData = function parseData(data) {
 	functionName = "";
 	args = [];
 
