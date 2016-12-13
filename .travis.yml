@@ -3,5 +3,5 @@ node_js:
   - "node"
   
 before_install:
-  - chmod +x ./travis/before_script.sh
-  - ./travis/before_script.sh
+  - cd client
+  - mkdir uploads
