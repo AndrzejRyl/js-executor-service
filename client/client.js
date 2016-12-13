@@ -30,7 +30,7 @@ module.exports.executeFunctionOnServer = function executeFunctionOnServer(filePa
 			code:file.function_to_calculate.toString(),
 			args: arguments})
     }, function(err, data) {
-    	callback(err);
+        if (err) callback(err);
         msgId = data.MessageId;
     });
 
@@ -38,7 +38,7 @@ module.exports.executeFunctionOnServer = function executeFunctionOnServer(filePa
     setTimeout(function() {
         // then
         checkResponse(msgId, callback);
-    }, 5000);
+    }, 10000);
 }
 
 function checkResponse(msgId, callback) {
@@ -53,7 +53,7 @@ function checkResponse(msgId, callback) {
                 ReceiptHandle: msg.ReceiptHandle
             }, function(err, data) {
                 if (err) callback(err);
-                callback(null, msg);
+                callback(null, msg.Body);
             });
         } else {
             checkResponse(msgId, callback);

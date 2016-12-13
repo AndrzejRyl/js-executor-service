@@ -21,7 +21,7 @@ module.exports.start = function start() {
 			if (err)
 				res.end("{\"result\":\"Something went wrong on the server.\"}");
 			else
-				res.end("{\"result\":\"" + body + "\"}");
+				res.end("{\"result\":" + body + "}");
 
 		});
 	});
