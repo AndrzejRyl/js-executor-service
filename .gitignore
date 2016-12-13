@@ -1,2 +1,5 @@
 node_modules/
 client/uploads/
+npm-debug.log
+config/config.json
+config/aws_config.json
