@@ -1,4 +1,5 @@
-process.env.SERVER_HOSTNAME = "localhost";
+process.env.CONFIG_PATH = './aws_config/example_config.json';
+process.env.AWS_CONFIG_PATH = 'aws_config/example_aws_config.json';
 const chai = require('chai');
 const http = require("http");
 const should = chai.should;

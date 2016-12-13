@@ -1,5 +1,7 @@
+const configPath = process.env.CONFIG_PATH || './aws_config/config.json';
+const awsConfigPath = process.env.AWS_CONFIG_PATH || 'aws_config/aws_config.json';
 const api = require("./client_api.js");
-const config = require('./aws_config/config.json');
+const config = require(configPath);
 const AWS = require('aws-sdk');
 var msgId;
 
@@ -7,7 +9,7 @@ var msgId;
 api.start();
 
 // Request queue
-AWS.config.loadFromPath('aws_config/aws_config.json');
+AWS.config.loadFromPath(awsConfigPath);
 var requestsQueue = new AWS.SQS({
     apiVersion: config.SQS_API_VERSION,
     params: {
