@@ -1,4 +1,5 @@
-# js-executor-service (client)
+# js-executor-service (client)  [![Build Status](https://travis-ci.org/AndrzejRyl/js-executor-service.svg)](https://travis-ci.org/AndrzejRyl/js-executor-service)
+
 
 ## Building & running
 In order to build entire env (both client and server) you have to use docker-compose.
