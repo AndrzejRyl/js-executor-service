@@ -2,4 +2,6 @@ language: node_js
 node_js:
   - "node"
   
-before_install: before_script.sh
+before_install:
+  - chmod +x ./travis/before_script.sh
+  - ./travis/before_script.sh
