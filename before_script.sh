@@ -1,0 +1,2 @@
+cd client
+mkdir uploads
