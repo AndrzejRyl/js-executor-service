@@ -1,5 +1,5 @@
 node_modules/
 client/uploads/
 npm-debug.log
-config/config.json
-config/aws_config.json
+client/aws_config/config.json
+client/aws_config/aws_config.json

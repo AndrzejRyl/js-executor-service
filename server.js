@@ -1,7 +1,7 @@
 const vm = require('vm');
 const fs = require('fs');
 const AWS = require('aws-sdk');
-const config = require('./config/config.json');
+const config = require('./client/aws_config/config.json');
 
 const main = function() {
     const track = createSandbox(['node_modules/tracking/build/tracking.js',
@@ -17,7 +17,7 @@ const main = function() {
         tracking: track
     };
 
-    AWS.config.loadFromPath('config/aws_config.json');
+    AWS.config.loadFromPath('client/aws_config/aws_config.json');
 
     const requestsQueue = new AWS.SQS({
         apiVersion: config.SQS_API_VERSION,

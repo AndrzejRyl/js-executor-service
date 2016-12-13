@@ -1,5 +1,5 @@
 const server = require('../server');
-const config = require('../config/config.json');
+const config = require('../client/aws_config/config.json');
 const AWS = require('aws-sdk');
 const assert = require('assert');
 
@@ -8,7 +8,7 @@ describe('server', function() {
 
     it('should handle message', function(done) {
         // given
-        AWS.config.loadFromPath('config/aws_config.json');
+        AWS.config.loadFromPath('client/aws_config/aws_config.json');
         var requestsQueue = new AWS.SQS({
             apiVersion: config.SQS_API_VERSION,
             params: {

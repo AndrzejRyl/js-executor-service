@@ -1,5 +1,5 @@
 const api = require("./client_api.js");
-const config = require('../config/config.json');
+const config = require('./aws_config/config.json');
 const AWS = require('aws-sdk');
 var msgId;
 
@@ -7,7 +7,7 @@ var msgId;
 api.start();
 
 // Request queue
-AWS.config.loadFromPath('../config/aws_config.json');
+AWS.config.loadFromPath('aws_config/aws_config.json');
 var requestsQueue = new AWS.SQS({
     apiVersion: config.SQS_API_VERSION,
     params: {
@@ -23,12 +23,16 @@ var responsesQueue = new AWS.SQS({
     }
 });
 
+module.exports.getRequestBody = function getRequestBody(filePath, arguments) {
+    var file = require(filePath);
+    return JSON.stringify({
+            code:file.function_to_calculate.toString(),
+            args: arguments});
+}
+
 module.exports.executeFunctionOnServer = function executeFunctionOnServer(filePath, arguments, callback) {
-	var file = require(filePath);
 	requestsQueue.sendMessage({
-        MessageBody: JSON.stringify({
-			code:file.function_to_calculate.toString(),
-			args: arguments})
+        MessageBody: module.exports.getRequestBody(filePath, arguments)
     }, function(err, data) {
         if (err) callback(err);
         msgId = data.MessageId;
