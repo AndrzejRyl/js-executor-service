@@ -38,10 +38,9 @@ module.exports.executeFunctionOnServer = function executeFunctionOnServer(filePa
     }, function(err, data) {
         if (err) callback(err);
         msgId = data.MessageId;
-    });
 
-    // then
-    checkResponse(msgId, callback);
+        checkResponse(msgId, callback);
+    });
 }
 
 function checkResponse(msgId, callback) {
