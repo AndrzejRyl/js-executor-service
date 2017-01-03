@@ -40,19 +40,18 @@ module.exports.executeFunctionOnServer = function executeFunctionOnServer(filePa
         msgId = data.MessageId;
     });
 
-
-    setTimeout(function() {
-        // then
-        checkResponse(msgId, callback);
-    }, 10000);
+    // then
+    checkResponse(msgId, callback);
 }
 
 function checkResponse(msgId, callback) {
     responsesQueue.receiveMessage({
         MessageAttributeNames: [
             "All"
-        ]
+        ],
+        WaitTimeSeconds: 20
     }, function(err, data) {
+        if (err) callback(err);
         var msg = data.Messages[0];
         if (msg.MessageAttributes.requestId.StringValue == msgId) {
             responsesQueue.deleteMessage({
